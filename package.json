@@ -1,23 +1,58 @@
 {
-  "name": "login-form",
+  "name": "appgile",
   "version": "1.0.0",
-  "description": "Login Form PoC",
-  "main": "index.html",
   "scripts": {
-    "test": "npm run test"
+    "ng": "ng",
+    "start": "ng serve -o",
+    "build": "ng build --prod",
+    "test": "ng test --code-coverage",
+    "lint": "ng lint",
+    "precommit": "lint-staged",
+    "e2e": "ng e2e"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/eBitzu/login-form.git"
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "^6.1.0",
+    "@angular/common": "^6.1.0",
+    "@angular/cdk": "^6.4.7",
+    "@angular/compiler": "^6.1.0",
+    "@angular/core": "^6.1.0",
+    "@angular/forms": "^6.1.0",
+    "@angular/http": "^6.1.0",
+    "@angular/material": "^6.4.7",
+    "@angular/platform-browser": "^6.1.0",
+    "@angular/platform-browser-dynamic": "^6.1.0",
+    "@angular/router": "^6.1.0",
+    "@fortawesome/fontawesome-free": "^5.5.0",
+    "core-js": "^2.5.4",
+    "rxjs": "^6.2.0",
+    "bootstrap": "^4.1.1",
+    "typescript": "~2.9.2",
+    "zone.js": "~0.8.26"
   },
-  "keywords": [
-    "login",
-    "form"
-  ],
-  "author": "Gabriel Raducu",
-  "license": "GPL-3.0",
-  "bugs": {
-    "url": "https://github.com/eBitzu/login-form/issues"
-  },
-  "homepage": "https://github.com/eBitzu/login-form#readme"
+  "devDependencies": {
+    "@angular-devkit/build-angular": "~0.8.0",
+    "@angular/cli": "~6.2.8",
+    "@angular/compiler-cli": "^6.1.0",
+    "@angular/language-service": "^6.1.0",
+    "@types/jasmine": "~2.8.8",
+    "@types/jasminewd2": "~2.0.3",
+    "@types/node": "~8.9.4",
+    "angular-tslint-rules": "^1.5.0",
+    "codelyzer": "~4.2.1",
+    "husky": "^1.1.3",
+    "jasmine-core": "~2.99.1",
+    "jasmine-spec-reporter": "~4.2.1",
+    "karma": "^4.0.0",
+    "karma-chrome-launcher": "~2.2.0",
+    "karma-coverage-istanbul-reporter": "~2.0.0",
+    "karma-jasmine": "~1.1.1",
+    "karma-jasmine-html-reporter": "^0.2.2",
+    "lint-staged": "^8.1.1",
+    "prettier": "^1.15.1",
+    "protractor": "^5.4.2",
+    "ts-node": "~5.0.1",
+    "tslint": "~5.11.0",
+    "tslint-sonarts": "^1.8.0"
+  }
 }
