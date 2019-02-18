@@ -1,0 +1,23 @@
+{
+  "name": "login-form",
+  "version": "1.0.0",
+  "description": "Login Form PoC",
+  "main": "index.html",
+  "scripts": {
+    "test": "npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eBitzu/login-form.git"
+  },
+  "keywords": [
+    "login",
+    "form"
+  ],
+  "author": "Gabriel Raducu",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/eBitzu/login-form/issues"
+  },
+  "homepage": "https://github.com/eBitzu/login-form#readme"
+}
