@@ -1,0 +1,26 @@
+@import '~bootstrap/scss/bootstrap';
+$fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
+
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+@import '~@fortawesome/fontawesome-free/scss/brands';
+@import '~@fortawesome/fontawesome-free/scss/solid';
+@import '~@fortawesome/fontawesome-free/scss/regular';
+@import '~@ng-select/ng-select/themes/default.theme.css';
+
+.link {
+  cursor: pointer;
+}
+
+.full-height {
+  height: calc(100vh);
+}
+
+.bg-indigo {
+  background-color: indigo;
+}
+
+.outside-btn {
+  position: absolute;
+  right: -125px;
+  top: 10px;
+}
