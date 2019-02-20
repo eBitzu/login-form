@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { of } from 'rxjs';
 import { catchError, take } from 'rxjs/operators';
 import { ILoginData } from 'src/app/shared/models/interfaces';
 import { RoutesNames } from 'src/app/shared/models/routes';
-import { StorageService } from 'src/app/shared/services/storage/storage.service';
 import { RegisterService } from '../../services/register/register.service';
 
 @Component({
@@ -41,5 +40,8 @@ export class LoginComponent {
         }
         this.router.navigate([RoutesNames.home]);
       });
+  }
+  goToSignUp() {
+    this.router.navigate([RoutesNames.signup]);
   }
 }

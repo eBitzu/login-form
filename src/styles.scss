@@ -18,3 +18,9 @@ $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
 .bg-indigo {
   background-color: indigo;
 }
+
+.outside-btn {
+  position: absolute;
+  right: -125px;
+  top: 10px;
+}
