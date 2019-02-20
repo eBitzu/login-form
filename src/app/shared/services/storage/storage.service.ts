@@ -1,65 +1,96 @@
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
-import { IUserData } from '../../models/interfaces';
+import { IStrippedUser, IUserData } from '../../models/interfaces';
 import { makeid } from '../../utils/tokengenerator';
 
 @Injectable()
 export class StorageService {
-  setUserCookie(email: string) {
-    const currentCookies = document.cookie.split(';');
-    let existingCookieTime = currentCookies.find((cookieString) =>
-      cookieString.includes(`${email}_time`)
-    );
-    if (existingCookieTime) {
-      existingCookieTime = `${email}_valid=${moment().format('x')}`;
-    } else {
-      currentCookies.push(`${email}_valid=${moment().format('x')}`);
-    }
-    let existingCookieToken = currentCookies.find((cookieString) =>
-      cookieString.includes(`${email}`)
-    );
-    if (existingCookieToken) {
-      existingCookieToken = `${email}=${makeid()}`;
-    } else {
-      currentCookies.push(`${email}=${makeid()}`);
-    }
-    document.cookie = currentCookies.join(';');
+  setUserCookie(mail: string) {
+    const user = this.getFromStorage(mail);
+    user.token = makeid();
+    this.removeCookie();
+    document.cookie = `SESSIONID=${user.token}; expires=${moment
+      .utc()
+      .add(30, 'minute')
+      .toString()}; path=/;`;
+    this.updateStorage(mail, user);
   }
-  isUserLoggedIn(email: string) {
-    const currentCookies = document.cookie.split(';');
-    const existingCookieTime = currentCookies.find((cookieString) =>
-      cookieString.includes(`${email}_time`)
-    );
-    const existingCookieToken = currentCookies.find((cookieString) =>
-      cookieString.includes(`${email}`)
-    );
-    let returnVal = false;
-    if (existingCookieToken && existingCookieTime) {
-      const unixTime = existingCookieTime.split('=').pop();
-      if (moment(unixTime).isAfter(moment())) {
-        returnVal = true;
-      }
-    }
 
-    return returnVal;
+  invalidateCurrentToken() {
+    const user = this.getUserByToken();
+    user.token = null;
+    this.removeCookie();
+    this.updateStorage(user.email, user);
+  }
+  isUserLoggedIn(): boolean {
+    return !!this.getUserByToken();
+  }
+
+  getStrippedUser(): IStrippedUser {
+    const { country, email, firstName, lastName } = this.getUserByToken();
+    return {
+      country,
+      email,
+      firstName,
+      lastName,
+    };
   }
 
   getFromStorage(email: string): IUserData {
-    let content: IUserData = null;
-    try {
-      content = JSON.parse(localStorage.getItem(email));
-    } catch (err) {
-      content = null;
-    }
-    return content;
+    const users: IUserData[] = this.getUsers() || [];
+    const found: IUserData = users.find(
+      (user: IUserData) => user.email === email
+    );
+    return found || null;
   }
 
   setToStorage(email: string, data: IUserData): string {
-    const set = this.getFromStorage(email);
-    if (!!set) {
+    if (!!this.getFromStorage(email)) {
       return 'Email already registered';
     }
-    localStorage.setItem(email, JSON.stringify(data));
+    this.updateStorage(null, data);
     return null;
   }
+
+  private removeCookie = () => {
+    document.cookie =
+      'SESSIONID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+  };
+
+  private getUserByToken(): IUserData {
+    const currentCookies = document.cookie.split('; ');
+    const existingCookieToken = currentCookies.find((cookieString) =>
+      cookieString.includes('SESSIONID')
+    );
+    if (existingCookieToken) {
+      const users = this.getUsers();
+      const token = existingCookieToken.split('=').pop();
+      const tokenUser = users.find(
+        (user) => !!user.token && user.token === token
+      );
+      return tokenUser;
+    }
+    return null;
+  }
+  private updateStorage(email: string, data: IUserData) {
+    let users: IUserData[] = this.getUsers() || [];
+    if (!email) {
+      users = [...users, data];
+    } else {
+      const found = users.findIndex((user) => user.email === email);
+      if (found > -1) {
+        users.splice(found, 1, data);
+      }
+    }
+    localStorage.setItem('users', JSON.stringify(users));
+  }
+  private getUsers = (): IUserData[] => {
+    let users: IUserData[] = [];
+    try {
+      users = JSON.parse(localStorage.getItem('users')) || [];
+    } catch (err) {
+      users = [];
+    }
+    return users;
+  };
 }
