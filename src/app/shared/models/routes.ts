@@ -1,6 +1,6 @@
 export enum RoutesNames {
   login = 'login',
-  signin = 'signin',
+  signup = 'signup',
   home = 'home',
   failed = 'failed',
 }
