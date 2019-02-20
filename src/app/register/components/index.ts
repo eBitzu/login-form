@@ -1,10 +1,7 @@
 import { LoginComponent } from './login/login.component';
-import { SigninComponent } from './signin/signin.component';
+import { SignUpComponent } from './signup/signup.component';
 
-export const components = [
-  LoginComponent,
-  SigninComponent,
-];
+export const components = [LoginComponent, SignUpComponent];
 
 export * from './login/login.component';
-export * from './signin/signin.component';
+export * from './signup/signup.component';
