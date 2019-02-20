@@ -15,7 +15,7 @@ export const appRoutes: Routes = [
     canActivateChild: [LoginGuard],
   },
   {
-    path: RoutesNames.signin,
+    path: RoutesNames.signup,
     loadChildren: './register/register.module#SignInModule',
     canActivateChild: [LoginGuard],
   },
